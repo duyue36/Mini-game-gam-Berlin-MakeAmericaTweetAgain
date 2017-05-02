@@ -30,7 +30,7 @@ public class Audience_controller : MonoBehaviour {
 		while (true) {
 			yield return new WaitForSeconds (MediaFeedTime);
 			Move (MediaFeedOffset);
-			yield return null;
+			
 		}
 
 	}
@@ -56,9 +56,10 @@ public class Audience_controller : MonoBehaviour {
 
 
 
-		if(channel_color == tweet_color)
+		if(channel_color.linear == tweet_color.linear)
 		{
-			Move (-MediaFeedOffset);
+			Move (-MediaFeedOffset * 2);
+           
 			Timer.Reset ();
 			StopCoroutine (m_Routine);
 			StartCoroutine (m_Routine);

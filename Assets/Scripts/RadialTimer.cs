@@ -7,28 +7,30 @@ public class RadialTimer : MonoBehaviour
 {
 	public float Duration;
 	public Text Label;
-	public Image Image;
+	public Image Image_timer;
+    public Image Image_title;
 
-	private void Start()
+    private void Start()
 	{
-		Image.fillAmount = 1f;
+
+        Image_timer.fillAmount = 1f;
 	}
 
 	private void Update()
 	{
-		float timer = Image.fillAmount;
+		float timer = Image_timer.fillAmount;
 		timer -= Time.deltaTime / Duration;
 		if (timer <= 0f) 
 		{
 			timer += 1f;
 		}
 
-		Image.fillAmount = timer;
-		Label.text = (Image.fillAmount * Duration).ToString("0.0");
+		Image_timer.fillAmount = timer;
+		Label.text = (Image_timer.fillAmount * Duration).ToString("0.0");
 	}
 
 	public void Reset()
 	{
-		Image.fillAmount = 1f;
+		Image_timer.fillAmount = 1f;
 	}
 }
