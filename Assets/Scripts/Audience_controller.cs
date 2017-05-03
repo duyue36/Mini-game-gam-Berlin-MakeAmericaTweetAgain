@@ -8,6 +8,7 @@ public class Audience_controller : MonoBehaviour {
 	public float MediaMinPosition = -5f;
 	public float MediaMaxPosition = 5f;
 	public RadialTimer Timer;
+    public string channelName;
 
 	private IEnumerator m_Routine;
 	private AudioSource WTF_sound;
@@ -16,7 +17,7 @@ public class Audience_controller : MonoBehaviour {
 
 	void Start () {
 		WTF_sound = GetComponent<AudioSource> ();
-		m_Routine = MoveToCNN ();
+		m_Routine = MoveToMedia ();
 		StartCoroutine (m_Routine);
 	}
 	
@@ -25,7 +26,7 @@ public class Audience_controller : MonoBehaviour {
 		
 	}
 
-	IEnumerator MoveToCNN()
+	IEnumerator MoveToMedia()
 	{
 		while (true) {
 			yield return new WaitForSeconds (MediaFeedTime);
@@ -78,4 +79,29 @@ public class Audience_controller : MonoBehaviour {
 		WTFNotification.Instance.Notify ();
 		WTF_sound.Play ();
 	}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Trump")
+        {
+            Debug.Log("audience arrive at trump");
+            if(this.tag == "CNN")
+            {
+                GameManager.Instance.CNNFailed = true;
+            }
+                
+            if (this.tag == "NPR")
+            {
+                GameManager.Instance.NPRFailed = true;
+            }
+                
+            if (this.tag == "NYT")
+            {
+                GameManager.Instance.NYTFailed = true;
+            }
+                
+
+            Destroy(this);
+        }
+    }
 }
